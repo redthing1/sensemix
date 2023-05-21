@@ -1,0 +1,25 @@
+import "wox" for W, R
+
+var TARGET = "./sensemix"
+
+var dc = W.cliopt("-dc", "dmd")
+var debug = W.cliopt_bool("-g", false)
+
+var d_srcs = W.glob("./source/*.d")
+
+var build_type = debug ? "debug" : "release"
+
+var main_recipe = W.recipe("main", d_srcs, [TARGET], 
+    [ R.c("dub build -b %(build_type) --compiler %(dc)") ]
+)
+var clean_recipe = W.virtual_recipe("clean", [],
+    [ R.c("dub clean") ]
+)
+var all_recipe = W.meta_recipe("all", [main_recipe])
+
+var BUILD_RECIPES = [main_recipe, clean_recipe, all_recipe]
+
+class Build {
+    static recipes { BUILD_RECIPES }
+    static default_recipe { "all" }
+}
