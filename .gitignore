@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/sensemix
+sensemix.so
+sensemix.dylib
+sensemix.dll
+sensemix.a
+sensemix.lib
+sensemix-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
+*.a
